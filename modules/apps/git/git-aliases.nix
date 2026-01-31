@@ -5,7 +5,7 @@
         g = "git";
       };
 
-      programs.git.settings.aliases = {
+      programs.git.settings.alias = {
         alias = "!git config -l | grep ^alias | cut -c 7- | sort";
         aliases = "config --get-regexp alias";
 
