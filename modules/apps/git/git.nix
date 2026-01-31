@@ -7,6 +7,7 @@
     ...
   }: {
     config = {
+      programs.delta.enableGitIntegration = true;
       programs.git = {
         enable = true;
         package = pkgs.gitMinimal;
@@ -15,7 +16,6 @@
           {path = "~/.config/git/.gitconfig";}
         ];
 
-        delta.enable = true;
         lfs.enable = true;
 
         settings = {
