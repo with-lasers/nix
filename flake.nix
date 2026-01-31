@@ -11,6 +11,9 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    krewfile.url = "github:brumhard/krewfile";
+    krewfile.inputs.nixpkgs.follows = "nixpkgs";
+
     nixpkgs-terraform.url = "github:stackbuilders/nixpkgs-terraform";
   };
 
