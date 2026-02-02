@@ -18,8 +18,14 @@
       ];
     };
   in {
+    home.file.".mozilla/native-messaging-hosts".enable = false;
+
     programs.firefox = {
       enable = true;
+
+      # Depends on the firefox 147+
+      # check https://github.com/nix-community/home-manager/issues/8200
+      configPath = "${config.xdg.configHome}/mozilla/firefox";
 
       # check https://mozilla.github.io/policy-templates
       policies = {
