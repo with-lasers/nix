@@ -9,13 +9,22 @@
       force = true;
       packages = with firefox-addons; [
         bitwarden
+        containerise
         multi-account-containers
         sidebery
         ublock-origin
+        sponsorblock
         violentmonkey
+
+        darkreader
+        raindropio
 
         granted # aws containers
       ];
+    };
+    settings = {
+      "extensions.autoDisableScopes" = 0;
+      "extensions.enabledScopes" = 15;
     };
   in {
     home.file.".mozilla/native-messaging-hosts".enable = false;
@@ -49,6 +58,7 @@
 
       profiles.${config.home.username} = {
         inherit extensions;
+        inherit settings;
         id = 0;
         name = config.home.username;
         isDefault = true;
