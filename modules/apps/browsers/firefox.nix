@@ -20,10 +20,18 @@
   in {
     programs.firefox = {
       enable = true;
+
+      # check https://mozilla.github.io/policy-templates
       policies = {
+        # Update via nix
+        DisableAppUpdate = true;
         DisableTelemetry = true;
         DisableFirefoxStudies = true;
         DontCheckDefaultBrowser = true;
+
+        # Disable "save password" prompt (signon.rememberSignons)
+        # (using bitwarden)
+        PasswordManagerEnabled = false;
         ExtensionSettings = {
           "ebay@search.mozilla.org".installation_mode = "blocked";
           "amazondotcom@search.mozilla.org".installation_mode = "blocked";
