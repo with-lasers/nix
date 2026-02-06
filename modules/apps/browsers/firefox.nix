@@ -13,7 +13,7 @@
         name = "ff";
         runtimeInputs = [firefox];
         text = ''
-          ${lib.getExe pkgs.firefox} -p ${config.home.username} "$@"
+          ${lib.getExe pkgs.firefox} -P ${config.home.username} "$@"
         '';
       })
     ];
