@@ -1,35 +1,26 @@
 {inputs, ...}: {
   flake.homeModules.firefox = {
     config,
+    lib,
     pkgs,
     ...
   }: let
     firefox-addons = inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system};
-    extensions = {
-      force = true;
-      packages = with firefox-addons; [
-        bitwarden
-        containerise
-        multi-account-containers
-        sidebery
-        ublock-origin
-        sponsorblock
-        violentmonkey
-
-        darkreader
-        raindropio
-
-        granted # aws containers
-      ];
-    };
-    settings = {
-      "extensions.autoDisableScopes" = 0;
-      "extensions.enabledScopes" = 15;
-    };
   in {
     home.file.".mozilla/native-messaging-hosts".enable = false;
+    home.packages = with pkgs; [
+      (writeShellApplication {
+        name = "ff";
+        runtimeInputs = [firefox];
+        text = ''
+          ${lib.getExe pkgs.firefox} -p ${config.home.username} "$@"
+        '';
+      })
+    ];
 
-    programs.firefox = {
+    programs.firefox = let
+      inherit (inputs.self) firefox;
+    in {
       enable = true;
 
       # Depends on the firefox 147+
@@ -56,13 +47,17 @@
         };
       };
 
-      profiles.${config.home.username} = {
-        inherit extensions;
-        inherit settings;
-        id = 0;
-        name = config.home.username;
-        isDefault = true;
-      };
+      profiles.${config.home.username} = lib.mkMerge [
+        (firefox.defaultSettings)
+        (firefox.defaultExtensions firefox-addons)
+        (firefox.gamingExtensions firefox-addons)
+        (firefox.shyfox firefox-addons)
+        {
+          id = 0;
+          name = config.home.username;
+          isDefault = true;
+        }
+      ];
     };
 
     home.sessionVariables = {
