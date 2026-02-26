@@ -6,6 +6,7 @@
     ...
   }: let
     firefox-addons = inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system};
+    profilePath = "${config.programs.firefox.configPath}/${config.home.username}";
   in {
     home.file.".mozilla/native-messaging-hosts".enable = false;
     home.packages = with pkgs; [
@@ -17,6 +18,22 @@
         '';
       })
     ];
+
+    home.activation.patchFirefoxShortcuts = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      FILE="${profilePath}/extension-settings.json"
+
+      if [ -f "$FILE" ]; then
+        tmp="$(mktemp)"
+        ${pkgs.jq}/bin/jq '
+          .commands["1"].precedenceList = [{
+            id: "userchrome-toggle-extended@n2ezr.ru",
+            installDate: 1000,
+            value: { shortcut: "Ctrl+E" },
+            enabled: true
+          }]
+        ' "$FILE" > "$tmp" && mv "$tmp" "$FILE"
+      fi
+    '';
 
     programs.firefox = let
       inherit (inputs.self) firefox;
