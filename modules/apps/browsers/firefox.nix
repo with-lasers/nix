@@ -3,6 +3,7 @@
     config,
     lib,
     pkgs,
+    username,
     ...
   }: let
     firefox-addons = inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system};
@@ -68,7 +69,6 @@
         (firefox.defaultSettings)
         (firefox.telemetry)
         (firefox.defaultExtensions firefox-addons)
-        (firefox.gamingExtensions firefox-addons)
         (firefox.shyfox firefox-addons)
         {
           id = 0;
@@ -76,7 +76,12 @@
           isDefault = true;
         }
       ];
+
+      profiles.${username} = lib.mkMerge [
+        (firefox.gamingExtensions firefox-addons)
+      ];
     };
+
 
     home.sessionVariables = {
       # TODO: check if I still need this flag
