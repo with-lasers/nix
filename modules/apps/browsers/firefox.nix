@@ -66,6 +66,7 @@
 
       profiles.${config.home.username} = lib.mkMerge [
         (firefox.defaultSettings)
+        (firefox.telemetry)
         (firefox.defaultExtensions firefox-addons)
         (firefox.gamingExtensions firefox-addons)
         (firefox.shyfox firefox-addons)

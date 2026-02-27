@@ -68,6 +68,39 @@
       };
     };
 
+    telemetry = {
+      settings = {
+        "privacy.trackingprotection.enabled" = true;
+
+        "browser.discovery.enabled" = false;
+        "extensions.getAddons.showPane" = false;
+        "extensions.htmlaboutaddons.recommendations.enabled" = false;
+
+        "datareporting.policy.dataSubmissionEnabled" = false;
+        "datareporting.healthreport.uploadEnabled" = false;
+
+        "toolkit.telemetry.unified" = false;
+        "toolkit.telemetry.enabled" = false;
+        "toolkit.telemetry.server" = "data:,";
+        "toolkit.telemetry.archive.enabled" = false;
+        "toolkit.telemetry.newProfilePing.enabled" = false;
+        "toolkit.telemetry.shutdownPingSender.enabled" = false;
+        "toolkit.telemetry.updatePing.enabled" = false;
+        "toolkit.telemetry.bhrPing.enabled" = false;
+        "toolkit.telemetry.firstShutdownPing.enabled" = false;
+
+        "toolkit.telemetry.coverage.opt-out" = true;
+        "toolkit.coverage.opt-out" = true;
+        "toolkit.coverage.endpoint.base" = "";
+        "browser.ping-centre.telemetry" = false;
+        "browser.newtabpage.activity-stream.feeds.telemetry" = false;
+        "browser.newtabpage.activity-stream.telemetry" = false;
+        "toolkit.telemetry.reportingpolicy.firstRun" = false;
+        "toolkit.telemetry.shutdownPingSender.enabledFirstsession" = false;
+        "browser.vpn_promo.enabled" = false;
+      };
+    };
+
     gamingExtensions = firefox-addons: {
       extensions.packages = with firefox-addons; [
         augmented-steam
