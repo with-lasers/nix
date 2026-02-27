@@ -1,5 +1,6 @@
 {
   flake.homeModules.desktop = {config, ...}: {
+    config.stylix.targets.ghostty.enable = true;
     config.programs.ghostty = {
       enable = true;
       enableZshIntegration = config.programs.zsh.enable;
