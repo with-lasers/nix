@@ -177,6 +177,9 @@
         location = "center";
         cycle = true;
 
+        # bigger font than the default (12)
+        # TODO: interpolate the default font?
+        font = lib.mkForce "Hack Nerd Font Mono 16";
         theme = lib.mkDefault "λ-stylix";
       };
 
