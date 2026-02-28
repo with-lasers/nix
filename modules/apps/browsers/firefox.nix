@@ -75,10 +75,7 @@
           name = config.home.username;
           isDefault = true;
         }
-      ];
-
-      profiles.${username} = lib.mkMerge [
-        (firefox.gamingExtensions firefox-addons)
+        (lib.mkIf (config.home.username == username) (firefox.gamingExtensions firefox-addons))
       ];
     };
 
