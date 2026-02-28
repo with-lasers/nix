@@ -17,6 +17,8 @@
     krewfile.url = "github:brumhard/krewfile";
     krewfile.inputs.nixpkgs.follows = "nixpkgs";
 
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+
     nixpkgs-terraform.url = "github:stackbuilders/nixpkgs-terraform";
   };
 

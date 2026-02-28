@@ -1,0 +1,39 @@
+// FIXME(hm): can't output the control chars
+[
+  {
+    "command": "workbench.action.terminal.sendSequence",
+    "key": "ctrl+left",
+    "when": "terminalFocus",
+    "args": {
+      "text": "\u001bb"
+    }
+  },
+  {
+    "command": "workbench.action.terminal.sendSequence",
+    "key": "ctrl+right",
+    "when": "terminalFocus",
+    "args": {
+      "text": "\u001bf"
+    }
+  },
+  {
+    "command": "workbench.action.terminal.new",
+    "key": "ctrl+t"
+  },
+  {
+    "args": {
+      "snippet": "**$TM_SELECTED_TEXT**$0"
+    },
+    "command": "editor.action.insertSnippet",
+    "key": "ctrl+b",
+    "when": "editorTextFocus && editorLangId == 'markdown'"
+  },
+  {
+    "args": {
+      "snippet": "*$TM_SELECTED_TEXT*$0"
+    },
+    "command": "editor.action.insertSnippet",
+    "key": "ctrl+i",
+    "when": "editorTextFocus && editorLangId == 'markdown'"
+  }
+]
