@@ -82,7 +82,6 @@
       ];
     };
 
-
     home.sessionVariables = {
       # TODO: check if I still need this flag
       MOZ_ENABLE_WAYLAND = 1;
