@@ -1,5 +1,6 @@
 {
   flake.homeModules.git = {
+    config,
     lib,
     pkgs,
     ...
@@ -40,6 +41,16 @@
           "https://gitlab.com/"
           "git://gitlab.com/"
         ];
+      };
+
+      programs.zsh = {
+        zsh-abbr = {
+          abbreviations = let
+            c = config.home.sessionVariables.ABBR_LINE_CURSOR_MARKER;
+          in {
+            "gl mr" = "git push -o merge_request.create -o merge_request.remove_source_branch -o merge_request.target=${c} ${c}";
+          };
+        };
       };
     };
   };
