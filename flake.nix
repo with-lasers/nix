@@ -20,6 +20,8 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
     nixpkgs-terraform.url = "github:stackbuilders/nixpkgs-terraform";
+
+    llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
   outputs = inputs @ {
