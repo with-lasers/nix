@@ -53,6 +53,7 @@
         "browser.disableResetPrompt" = true;
         "browser.sessionstore.resume_session_once" = true;
         "browser.sessionstore.resuming_after_os_restart" = true;
+        "browser.sessionstore.max_windows_undo" = 20;
 
         "dom.security.https_only_mode" = true;
 
