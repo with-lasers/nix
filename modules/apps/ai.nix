@@ -48,9 +48,6 @@
         SupplementaryGroups = [group];
       };
 
-      # TODO: remove after https://github.com/NixOS/nixpkgs/pull/531127
-      networking.firewall.allowedTCPPorts = [port];
-
       # Data is stored in /var/{cache,lib}/llama-cpp
       services.llama-cpp = {
         enable = true;
@@ -59,7 +56,7 @@
         };
 
         # TODO: use a reverse proxy and remove 0.0.0.0 listening
-        # openFirewall = true;
+        openFirewall = true;
 
         # Docs: https://github.com/ggml-org/llama.cpp/blob/master/tools/server/README.md
         settings = {
