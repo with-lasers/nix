@@ -1,8 +1,9 @@
-{lib, inputs, ...}: {
-  perSystem = {
-    pkgs,
-    ...
-  }: {
+{
+  lib,
+  inputs,
+  ...
+}: {
+  perSystem = {pkgs, ...}: {
     devShells.ai = pkgs.mkShell {
       packages = with inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; [
         crush

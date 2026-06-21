@@ -1,10 +1,5 @@
-{
-  inputs,
-  ...
-}: {
-  flake.nixosModules.vscode = {
-    ...
-  }: {
+{inputs, ...}: {
+  flake.nixosModules.vscode = {...}: {
     config.nixpkgs.overlays = [
       inputs.nix-vscode-extensions.overlays.default
     ];
