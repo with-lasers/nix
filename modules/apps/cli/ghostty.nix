@@ -1,4 +1,15 @@
 {
+  flake.nixosModules.base = {
+    config,
+    lib,
+    pkgs,
+    ...
+  }: {
+    config.environment = lib.mkIf config.services.openssh.enable {
+      systemPackages = [pkgs.ghostty.terminfo];
+    };
+  };
+
   flake.homeModules.desktop = {config, ...}: {
     config.stylix.targets.ghostty.enable = true;
     config.programs.ghostty = {
