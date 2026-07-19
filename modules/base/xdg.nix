@@ -10,6 +10,7 @@
 
       userDirs = {
         enable = true;
+        setSessionVariables = true;
 
         # Lowercase the dirs
         desktop = "${config.home.homeDirectory}/desktop";
