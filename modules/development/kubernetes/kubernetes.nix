@@ -80,6 +80,11 @@
       home.file.".config/kubernetes/clusters.yaml".source = toYAML "kubernetes/clusters.yaml" {
         clusters = config.${namespace}.kubernetes.clusters;
       };
+
+      home.packages = with pkgs; [
+        kubectl
+        fzf # kubectl ctx selection
+      ];
     };
   };
 
