@@ -9,7 +9,10 @@
     cfg = config.${namespace}.k9s;
     wrapper = pkgs.writeShellApplication {
       name = "k9s";
-      runtimeInputs = [];
+      runtimeInputs = with pkgs; [
+        yq-go
+        kubectl
+      ];
       text = ''
         CONFIG_ROOT=$HOME/.config/k9s
         CONFIG_DIR="''${CONFIG_DIR:-$CONFIG_ROOT/config.d}"
