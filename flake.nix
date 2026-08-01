@@ -38,5 +38,7 @@
     }: {
       imports = [(inputs.import-tree ./modules)];
       systems = import inputs.systems;
+
+      _module.args.lib = inputs.nixpkgs.lib.extend (_: _: config.flake.lib);
     });
 }
