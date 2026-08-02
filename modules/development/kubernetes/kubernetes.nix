@@ -1,4 +1,9 @@
 {inputs, ...}: {
+  flake-file.inputs = {
+    krewfile.url = "github:brumhard/krewfile";
+    krewfile.inputs.nixpkgs.follows = "nixpkgs";
+  };
+
   flake.homeModules.development = {
     config,
     lib,

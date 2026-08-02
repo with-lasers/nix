@@ -1,4 +1,6 @@
 {
+  flake-file.inputs.nixpkgs-terraform.url = "github:stackbuilders/nixpkgs-terraform";
+
   flake.homeModules.development = {
     config,
     lib,
