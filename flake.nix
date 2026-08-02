@@ -21,6 +21,10 @@
     );
 
   inputs = {
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -43,6 +47,7 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-terraform.url = "github:stackbuilders/nixpkgs-terraform";
+    preservation.url = "github:nix-community/preservation";
     systems.url = "github:nix-systems/default";
   };
 }
