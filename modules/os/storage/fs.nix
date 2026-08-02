@@ -46,7 +46,7 @@ in {
         partitions = {
           boot = partition.boot "1M";
           esp = partition.esp "1G";
-          luks = partition.lvmOnLuks "pool" "100%";
+          luks = partition.lvmOnLuks vg "100%";
         };
       };
     };
