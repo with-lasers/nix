@@ -47,6 +47,7 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-terraform.url = "github:stackbuilders/nixpkgs-terraform";
+    preservation.url = "github:nix-community/preservation";
     systems.url = "github:nix-systems/default";
   };
 }
