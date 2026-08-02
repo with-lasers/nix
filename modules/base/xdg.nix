@@ -1,10 +1,5 @@
 {
-  flake.homeModules.base = {
-    config,
-    pkgs,
-    namespace,
-    ...
-  }: {
+  flake.homeModules.base = {config, ...}: {
     config.xdg = {
       enable = true;
 

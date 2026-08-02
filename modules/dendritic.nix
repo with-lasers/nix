@@ -4,10 +4,9 @@
   ];
 
   flake-file.outputs = ''
-    inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (top @ {
+    inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (
+    {
       config,
-      withSystem,
-      moduleWithSystem,
       ...
     }: {
       imports = [

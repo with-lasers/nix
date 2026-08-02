@@ -41,11 +41,7 @@ in {
     };
   };
 
-  flake.homeModules.productivity = {
-    lib,
-    pkgs,
-    ...
-  }: {
+  flake.homeModules.productivity = {lib, ...}: {
     services.espanso = {
       # I set the keyboard_layout.{layout,model} in private flake
       configs.default = {

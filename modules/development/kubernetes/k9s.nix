@@ -1,4 +1,4 @@
-{inputs, ...}: {
+{...}: {
   flake.homeModules.development = {
     config,
     lib,
@@ -104,7 +104,7 @@
           ])
           cfg.profiles);
 
-      home.file = lib.mapAttrs' (name: profile:
+      home.file = lib.mapAttrs' (_name: profile:
         lib.nameValuePair "${profile.dir}/views.yaml" {
           source = (pkgs.formats.yaml {}).generate "k9s-views-${profile.name}.yaml" {
             views = profile.views;

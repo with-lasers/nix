@@ -1,8 +1,4 @@
-{
-  lib,
-  inputs,
-  ...
-}: {
+{inputs, ...}: {
   flake-file.inputs.llm-agents.url = "github:numtide/llm-agents.nix";
 
   perSystem = {pkgs, ...}: {

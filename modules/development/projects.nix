@@ -2,7 +2,6 @@
   flake.homeModules.development = {
     config,
     lib,
-    pkgs,
     namespace,
     ...
   }: let

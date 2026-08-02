@@ -1,6 +1,5 @@
 {
   flake.nixosModules.development = {
-    config,
     pkgs,
     username,
     ...

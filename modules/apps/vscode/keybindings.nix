@@ -2,7 +2,6 @@
   # FIXME(hm): can't output the control chars, like \u001b, so I just link them
   flake.homeModules.vscode = {
     config,
-    inputs,
     lib,
     ...
   }: {

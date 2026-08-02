@@ -8,11 +8,8 @@
   };
 
   flake.homeModules.vscode = {
-    config,
     lib,
     pkgs,
-    inputs,
-    namespace,
     ...
   }: let
     feat-remote = marketplace: {

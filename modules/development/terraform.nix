@@ -3,9 +3,7 @@
 
   flake.homeModules.development = {
     config,
-    lib,
     namespace,
-    pkgs,
     ...
   }: {
     config = {

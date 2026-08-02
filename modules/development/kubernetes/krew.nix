@@ -7,7 +7,6 @@
   # FIXME: krewfile module dependency on ssh because of the git ssh override
   flake.homeModules.krew = {
     config,
-    namespace,
     pkgs,
     ...
   }: {

@@ -91,10 +91,8 @@ in {
   };
 
   flake.nixosModules.storage = {
-    config,
     lib,
     namespace,
-    username,
     ...
   }: {
     options.${namespace}.storage.btrfs = lib.mkOption {

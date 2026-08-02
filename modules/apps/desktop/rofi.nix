@@ -1,9 +1,5 @@
 {lib, ...}: {
-  flake.homeModules.desktop = {
-    pkgs,
-    config,
-    ...
-  }: let
+  flake.homeModules.desktop = {config, ...}: let
     # TODO: use rasi mkLiteral?
     mkTheme = accent: ''
       /**

@@ -5,12 +5,7 @@
 
   outputs = inputs:
     inputs.flake-parts.lib.mkFlake {inherit inputs;} (
-      top @ {
-        config,
-        withSystem,
-        moduleWithSystem,
-        ...
-      }: {
+      {config, ...}: {
         imports = [
           (inputs.import-tree ./modules)
         ];

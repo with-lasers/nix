@@ -1,11 +1,5 @@
 {
-  flake.homeModules.git = {
-    config,
-    lib,
-    namespace,
-    pkgs,
-    ...
-  }: {
+  flake.homeModules.git = {pkgs, ...}: {
     config = {
       home.packages = with pkgs; [
         hub

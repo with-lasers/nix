@@ -3,7 +3,6 @@
     config,
     lib,
     namespace,
-    username,
     ...
   }: let
     inherit (config.${namespace}) storage;
