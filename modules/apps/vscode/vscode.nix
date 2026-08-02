@@ -1,4 +1,6 @@
 {inputs, ...}: {
+  flake-file.inputs.nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+
   flake.nixosModules.vscode = {...}: {
     config.nixpkgs.overlays = [
       inputs.nix-vscode-extensions.overlays.default

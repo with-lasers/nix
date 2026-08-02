@@ -1,44 +1,50 @@
+# DO-NOT-EDIT. This file was auto-generated using github:vic/flake-file.
+# Use `nix run .#write-flake` to regenerate it.
 {
   description = "My public modules";
 
+  outputs =
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } (
+      top@{
+        config,
+        withSystem,
+        moduleWithSystem,
+        ...
+      }:
+      {
+        imports = [
+          (inputs.import-tree ./modules)
+        ];
+
+        systems = import inputs.systems;
+        _module.args.lib = inputs.nixpkgs.lib.extend (_: _: config.flake.lib);
+      }
+    );
+
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    flake-file.url = "github:vic/flake-file";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     import-tree.url = "github:vic/import-tree";
-    systems.url = "github:nix-systems/default";
-
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
-    firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-    firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
-
-    krewfile.url = "github:brumhard/krewfile";
-    krewfile.inputs.nixpkgs.follows = "nixpkgs";
-
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-
-    nixpkgs-terraform.url = "github:stackbuilders/nixpkgs-terraform";
-
+    krewfile = {
+      url = "github:brumhard/krewfile";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     llm-agents.url = "github:numtide/llm-agents.nix";
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-terraform.url = "github:stackbuilders/nixpkgs-terraform";
+    systems.url = "github:nix-systems/default";
   };
-
-  outputs = inputs @ {
-    flake-parts,
-    nixpkgs,
-    home-manager,
-    ...
-  }:
-    flake-parts.lib.mkFlake {inherit inputs;} (top @ {
-      config,
-      withSystem,
-      moduleWithSystem,
-      ...
-    }: {
-      imports = [(inputs.import-tree ./modules)];
-      systems = import inputs.systems;
-
-      _module.args.lib = inputs.nixpkgs.lib.extend (_: _: config.flake.lib);
-    });
 }
