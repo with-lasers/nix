@@ -3,16 +3,14 @@
 {
   description = "My public modules";
 
-  outputs =
-    inputs:
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } (
-      top@{
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake {inherit inputs;} (
+      top @ {
         config,
         withSystem,
         moduleWithSystem,
         ...
-      }:
-      {
+      }: {
         imports = [
           (inputs.import-tree ./modules)
         ];
