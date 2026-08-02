@@ -1,6 +1,6 @@
-{lib, ...}: {
-  flake.lib.btrfs = {
-    types.subvolume = lib.types.submodule ({name, ...}: {
+{lib, ...}: let
+  types = {
+    subvolume = lib.types.submodule ({name, ...}: {
       options = {
         snapshot = lib.mkEnableOption "snapshots";
 
@@ -27,35 +27,37 @@
         };
       };
     });
-
-    subvolume = {
-      subvol,
-      mountpoint,
-      # TODO: maybe remove ssd by default (?)
-      mountOptions ? ["defaults" "discard=async" "compress=zstd" "ssd" "noatime" "nodiratime"],
-      extra ? {},
-    }: {
-      "${subvol}" =
-        {
-          inherit mountOptions;
-          extraArgs = ["-p"];
-          mountpoint = builtins.toPath mountpoint;
-        }
-        // extra;
-    };
-
-    mkSubvolume = path: (lib.btrfs.subvolume {
+  };
+  subvolume = {
+    subvol,
+    mountpoint,
+    # TODO: maybe remove ssd by default (?)
+    mountOptions ? ["defaults" "discard=async" "compress=zstd" "ssd" "noatime" "nodiratime"],
+    extra ? {},
+  }: {
+    "${subvol}" =
+      {
+        inherit mountOptions;
+        extraArgs = ["-p"];
+        mountpoint = builtins.toPath mountpoint;
+      }
+      // extra;
+  };
+in {
+  flake.lib.btrfs = {
+    inherit subvolume;
+    mkSubvolume = path: (subvolume {
       subvol = "@${lib.removePrefix "@" path}";
       mountpoint = "/${lib.removePrefix "/" path}";
     });
 
     snapperLayout = subvol: path:
       lib.mkMerge [
-        (lib.btrfs.subvolume {
+        (subvolume {
           inherit subvol;
           mountpoint = "${path}/.snapshots";
         })
-        (lib.btrfs.subvolume {
+        (subvolume {
           subvol = "${subvol}/live/snapshot";
           mountpoint = "${path}";
         })
@@ -116,7 +118,7 @@
 
           subvolumes = lib.mkOption {
             description = "BTRFS subvolume definitions.";
-            type = lib.types.attrsOf lib.btrfs.types.subvolume;
+            type = lib.types.attrsOf types.subvolume;
             default = {
               "/" = {snapshot = true;};
               "/nix" = {};
