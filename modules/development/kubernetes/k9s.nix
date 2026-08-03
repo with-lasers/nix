@@ -1,4 +1,95 @@
 {...}: {
+  flake.lib.k9s = {
+    mkTheme = colors: ''
+      background: &background "default"
+      accent-light: &accent-light "${colors.light}"
+      accent: &accent "${colors.accent}"
+      accent-dark: &accent-dark "${colors.dark}"
+
+      k9s:
+        body:
+          fgColor: red
+          bgColor: *background
+          logoColor: "#FFFFFF"
+
+        prompt:
+          fgColor: *accent
+          bgColor: default
+          suggestColor: *accent
+
+        info:
+          fgColor: *accent
+          sectionColor: *accent-light
+
+        help:
+          fgColor: '#E0CCFF'
+          bgColor: default
+          keyColor: *accent
+          numKeyColor: *accent
+          sectionColor: *accent
+
+        dialog:
+          bgColor: *background
+          fgColor: red
+          fieldFgColor: red
+          labelFgColor: pink
+
+        frame:
+          border:
+            fgColor: *accent-light
+            focusColor: *accent-light
+
+          menu:
+            fgColor: *accent-light
+            keyColor: *accent
+            numKeyColor: *accent
+
+          crumbs:
+            fgColor: *accent-light
+            bgColor: *accent
+            activeColor: *accent
+
+          status:
+            newColor: *accent-light
+            modifyColor: *accent
+            addColor: *accent
+            errorColor: *accent
+            highlightcolor: *accent
+            killColor: *accent
+            completedColor: *accent
+
+          title:
+            fgColor: *accent-light
+            bgColor: *background
+            highlightColor: *accent-light
+            counterColor: *accent-light
+            filterColor: *accent
+        views:
+          table:
+            fgColor: *accent-dark
+            bgColor: *background
+            markColor: *accent-dark
+            header:
+              bgColor: *background
+              fgColor: *accent
+              sorterColor: *accent-dark
+
+          yaml:
+            keyColor: *accent
+            colonColor: *accent-dark
+            valueColor: *accent-light
+
+          # Logs styles.
+          logs:
+            fgColor: *accent-light
+            bgColor: *background
+            indicator:
+              fgColor: *accent
+              bgColor: default
+              toggleOnColor: '#a6e3a1'
+              toggleOffColor: '#a6adc8'
+    '';
+  };
   flake.homeModules.development = {
     config,
     lib,
@@ -103,6 +194,18 @@
             "L+ %h/${profile.dir}/screen-dumps - - - - %h/.local/state/k9s/screen-dumps"
           ])
           cfg.profiles);
+
+      xdg.configFile."k9s/skins/λ-blue.yaml".text = lib.k9s.mkTheme {
+        light = "#CCCCCC";
+        accent = "#008AFF";
+        dark = "#0088FF3F";
+      };
+
+      xdg.configFile."k9s/skins/λ-stylix.yaml".text = lib.k9s.mkTheme {
+        light = config.lib.stylix.colors.withHashtag.base06;
+        accent = config.lib.stylix.colors.withHashtag.base0D;
+        dark = config.lib.stylix.colors.withHashtag.base04;
+      };
 
       home.file = lib.mapAttrs' (_name: profile:
         lib.nameValuePair "${profile.dir}/views.yaml" {
