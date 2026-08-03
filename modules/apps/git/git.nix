@@ -1,4 +1,34 @@
-{
+{lib, ...}: {
+  flake.lib.git = {
+    mergeConfig = parts: builtins.concatStringsSep "\n" (map lib.generators.toGitINI parts);
+
+    includeDirs = {
+      path ? "",
+      paths ? [
+        "gitdir:/tmp/${path}/"
+        "gitdir:/home/${path}/"
+        "gitdir:~/prj/${path}/"
+      ],
+    }:
+      map (s: "includeIf.${s}") paths;
+
+    insteadOf = url: path: [
+      "git@${url}:${path}/"
+      "git://${url}/${path}/"
+      "http://${url}/${path}/"
+      "https://${url}/${path}/"
+    ];
+
+    renderIgnore = ignore:
+      lib.concatStringsSep "\n\n" (
+        lib.mapAttrsToList (title: patterns: ''
+          # ${title}
+          ${lib.concatStringsSep "\n" patterns}
+        '')
+        ignore
+      );
+  };
+
   flake.homeModules.git = {pkgs, ...}: {
     config = {
       programs.delta.enableGitIntegration = true;
