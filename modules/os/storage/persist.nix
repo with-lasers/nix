@@ -31,8 +31,6 @@
     };
 
     config = lib.mkIf cfg.enable {
-      boot.initrd.systemd.enable = true;
-
       preservation.enable = true;
 
       # Configuring permission so Home Manager works

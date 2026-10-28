@@ -60,7 +60,6 @@
         luks.devices."${device}".keyFile = "${mountpoint}/${file}";
 
         systemd = {
-          enable = true;
           services."systemd-cryptsetup@${device}" = {
             overrideStrategy = "asDropin";
             unitConfig = {
