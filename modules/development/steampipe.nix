@@ -1,4 +1,61 @@
 {...}: {
+  flake.lib.steampipe = {
+    aws = {
+      connection = {
+        name,
+        profile,
+        regions,
+      }: ''
+        connection "${name}" {
+          plugin  = "aws"
+          profile = "${profile}"
+          regions = ${builtins.toJSON regions}
+        }
+      '';
+
+      aggregation = {
+        name,
+        connections,
+      }: ''
+        connection "${name}" {
+          plugin      = "aws"
+          type        = "aggregator"
+          connections = ${builtins.toJSON connections}
+        }
+      '';
+    };
+
+    k8s = {
+      connection = {
+        name,
+        context,
+        configPath ? "~/.kube/config",
+        sourceTypes ? ["deployed"],
+        customResourceTables ? ["*"],
+      }: ''
+        connection "${name}" {
+          plugin                 = "kubernetes"
+          config_path            = "${configPath}"
+          config_context         = "${context}"
+          source_types           = ${builtins.toJSON sourceTypes}
+          custom_resource_tables = ${builtins.toJSON customResourceTables}
+        }
+      '';
+
+      aggregation = {
+        name,
+        connections,
+      }: ''
+        connection "${name}" {
+          plugin      = "kubernetes"
+          type        = "aggregator"
+          connections = ${builtins.toJSON connections}
+          custom_resource_tables = ["*"]
+        }
+      '';
+    };
+  };
+
   flake.homeModules.development = {
     lib,
     pkgs,
