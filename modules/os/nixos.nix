@@ -1,4 +1,4 @@
-{...}: let
+{inputs, ...}: let
   NIXOS_REPO = "/etc/nixos";
 in {
   flake-file.inputs = {
@@ -16,7 +16,6 @@ in {
   };
 
   flake.nixosModules.base = {
-    inputs,
     pkgs,
     username,
     ...
