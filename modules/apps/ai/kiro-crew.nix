@@ -1,7 +1,6 @@
-{inputs, ...}: {
+{...}: {
   flake.nixosModules.kiro-crew = {
     lib,
-    pkgs,
     username,
     ...
   }: let
