@@ -1,5 +1,8 @@
 {inputs, ...}: {
-  flake-file.inputs.llm-agents.url = "github:numtide/llm-agents.nix";
+  flake-file.inputs.llm-agents = {
+    url = "github:numtide/llm-agents.nix";
+    inputs.treefmt-nix.follows = "treefmt-nix";
+  };
 
   perSystem = {pkgs, ...}: {
     devShells.ai = pkgs.mkShell {

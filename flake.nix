@@ -38,7 +38,10 @@
       url = "github:brumhard/krewfile";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    llm-agents.url = "github:numtide/llm-agents.nix";
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs.treefmt-nix.follows = "treefmt-nix";
+    };
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -48,5 +51,9 @@
     nixpkgs-terraform.url = "github:stackbuilders/nixpkgs-terraform";
     preservation.url = "github:nix-community/preservation";
     systems.url = "github:nix-systems/default";
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }

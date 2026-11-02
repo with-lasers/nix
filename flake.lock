@@ -212,7 +212,9 @@
         "flake-parts": "flake-parts_2",
         "nixpkgs": "nixpkgs",
         "systems": "systems_2",
-        "treefmt-nix": "treefmt-nix"
+        "treefmt-nix": [
+          "treefmt-nix"
+        ]
       },
       "locked": {
         "lastModified": 1793598648,
@@ -413,7 +415,8 @@
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-terraform": "nixpkgs-terraform",
         "preservation": "preservation",
-        "systems": "systems_4"
+        "systems": "systems_4",
+        "treefmt-nix": "treefmt-nix"
       }
     },
     "systems": {
@@ -479,7 +482,6 @@
     "treefmt-nix": {
       "inputs": {
         "nixpkgs": [
-          "llm-agents",
           "nixpkgs"
         ]
       },
