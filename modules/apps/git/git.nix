@@ -33,10 +33,31 @@
     };
   };
 
+  insteadOf = url: path: [
+    "git@${url}:${path}/"
+    "git://${url}/${path}/"
+    "http://${url}/${path}/"
+    "https://${url}/${path}/"
+  ];
+
   mapProfileToFile = name: profile: {
     "git/profile.d/${name}/.gitconfig".text = profile.config;
     "git/profile.d/${name}/ignore".text = profile.ignore;
   };
+
+  # I prefix the url with a subdomain so I can `Host subdomain.*` in ssh config
+  # and set the IdentityFile
+  generateInsteadOf = subdomain: forges:
+    lib.unique (
+      lib.concatLists (
+        lib.mapAttrsToList (host: {orgs}:
+          map (org: {
+            url."git@${subdomain}.${host}:${org}/".insteadOf = insteadOf host org;
+          })
+          orgs)
+        forges
+      )
+    );
 in {
   flake.lib.git = {
     mergeConfig = parts: builtins.concatStringsSep "\n" (map lib.generators.toGitINI parts);
@@ -51,12 +72,7 @@ in {
     }:
       map (s: "includeIf.${s}") paths;
 
-    insteadOf = url: path: [
-      "git@${url}:${path}/"
-      "git://${url}/${path}/"
-      "http://${url}/${path}/"
-      "https://${url}/${path}/"
-    ];
+    inherit insteadOf generateInsteadOf;
 
     renderIgnore = ignore:
       lib.concatStringsSep "\n\n" (
