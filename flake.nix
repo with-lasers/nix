@@ -20,10 +20,6 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     flake-file.url = "github:denful/flake-file";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -41,6 +37,10 @@
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
       inputs.treefmt-nix.follows = "treefmt-nix";
+    };
+    nix-firefox-addons = {
+      url = "github:OsiPog/nix-firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-index-database = {
       url = "github:nix-community/nix-index-database";

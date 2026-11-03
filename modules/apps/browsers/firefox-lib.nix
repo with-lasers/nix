@@ -20,7 +20,7 @@
       extensions.force = true;
       extensions.packages = with firefox-addons; [
         # apps
-        bitwarden
+        bitwarden-password-manager
         raindropio
 
         # containers
@@ -102,6 +102,17 @@
       };
     };
 
+    translations = firefox-addons: {
+      settings = {
+        # Languages
+        "browser.translation.neverTranslateLanguages" = "pt";
+        "layout.spellcheckDefault" = 2;
+      };
+      extensions.packages = with firefox-addons; [
+        # pt-BR@dictionaries.addons.mozilla.org
+        corretor
+      ];
+    };
     gamingExtensions = firefox-addons: {
       extensions.packages = with firefox-addons; [
         augmented-steam

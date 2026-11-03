@@ -1,9 +1,12 @@
 {inputs, ...}: {
   flake-file.inputs = {
-    firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-    firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
+    nix-firefox-addons.url = "github:OsiPog/nix-firefox-addons";
+    nix-firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
   };
 
+  flake.nixosModules.firefox = {...}: {
+    config.nixpkgs.overlays = [inputs.nix-firefox-addons.overlays.default];
+  };
   flake.homeModules.firefox = {
     config,
     lib,
@@ -11,7 +14,7 @@
     username,
     ...
   }: let
-    firefox-addons = inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system};
+    firefox-addons = pkgs.firefoxAddons;
     profilePath = "${config.programs.firefox.configPath}/${config.home.username}";
   in {
     home.file.".mozilla/native-messaging-hosts".enable = false;
@@ -74,6 +77,7 @@
         (firefox.defaultSettings)
         (firefox.telemetry)
         (firefox.defaultExtensions firefox-addons)
+        (firefox.translations firefox-addons)
         (firefox.shyfox firefox-addons)
         {
           id = 0;
