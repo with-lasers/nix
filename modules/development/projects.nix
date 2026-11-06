@@ -19,7 +19,7 @@
 
     config = {
       home.sessionVariables = {
-        PROJECT_ROOTS = lib.strings.concatStringsSep ":" cfg.projectRoots;
+        PROJECT_ROOTS = lib.strings.concatStringsSep ":" (lib.lists.unique cfg.projectRoots);
       };
     };
   };
