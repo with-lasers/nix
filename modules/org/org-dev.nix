@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.organization = {namespace, ...}: {
+  flake.nixosModules."org/dev" = {namespace, ...}: {
     ${namespace}.organization.orgs.dev = {
       user.id = 1337;
     };
