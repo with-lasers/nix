@@ -7,7 +7,7 @@
     pkgs,
     ...
   }: let
-    profiles = lib.attrByPath [namespace "profiles"] {} config;
+    profiles = config.${namespace}.profiles;
     perUser = f: lib.mapAttrs f profiles;
 
     createGroup = name: profile: {
