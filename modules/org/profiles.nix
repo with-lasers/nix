@@ -17,7 +17,7 @@
 
               email = lib.mkOption {
                 description = "Contact address, also used for the account description.";
-                type = lib.types.str;
+                type = lib.types.strMatching "[^,]+";
               };
             };
           };
