@@ -23,6 +23,7 @@
       uid = profile.user.id;
 
       isNormalUser = true;
+      homeMode = "2770";
       description = builtins.concatStringsSep "," [
         (builtins.replaceStrings ["@"] [","] profile.user.email)
         ""
