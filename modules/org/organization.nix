@@ -3,6 +3,7 @@
     config,
     lib,
     namespace,
+    pkgs,
     ...
   }: let
     cfg = config.${namespace}.organization;
@@ -42,9 +43,26 @@
               default = {};
             };
 
-            user.id = lib.mkOption {
-              description = "uid and gid of the organization user.";
-              type = lib.types.int;
+            user = lib.mkOption {
+              description = "The organization user.";
+              type = lib.types.submodule {
+                options = {
+                  id = lib.mkOption {
+                    description = "uid and gid of the organization user.";
+                    type = lib.types.int;
+                  };
+
+                  shell = lib.mkOption {
+                    type = lib.types.package;
+                    default = pkgs.zsh;
+                  };
+
+                  extraGroups = lib.mkOption {
+                    type = lib.types.listOf lib.types.str;
+                    default = [];
+                  };
+                };
+              };
             };
           };
         }));
@@ -58,15 +76,17 @@
         lib.mapAttrs' (name: _: lib.nameValuePair "/home/${name}" {snapshot = true;})
         cfg.orgs;
 
+      users.users = lib.mapAttrs' (name: org:
+        lib.nameValuePair name {
+          inherit (org.user) shell extraGroups;
+        })
+      cfg.orgs;
+
       systemd.tmpfiles.settings =
         lib.mapAttrs' (name: org: {
           name = "10-org-${name}";
           value = {
-            "/home/${name}".d = {
-              user = org.permissions.user;
-              group = org.permissions.group;
-              mode = "0770";
-            };
+            "/home/${name}".d = org.permissions;
 
             "${org.root}".d = org.permissions;
           };
