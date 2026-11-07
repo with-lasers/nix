@@ -4,9 +4,11 @@
     lib,
     namespace,
     pkgs,
+    username,
     ...
   }: let
     cfg = config.${namespace}.organization;
+    roots = map (org: org.root) (lib.attrValues cfg.orgs);
   in {
     options.${namespace}.organization = {
       orgs = lib.mkOption {
@@ -81,6 +83,16 @@
           inherit (org.user) shell extraGroups;
         })
       cfg.orgs;
+
+      home-manager.users =
+        lib.mapAttrs' (name: org:
+          lib.nameValuePair name {
+            ${namespace}.projectRoots = [org.root];
+          })
+        cfg.orgs
+        // lib.optionalAttrs (roots != []) {
+          ${username}.${namespace}.projectRoots = roots;
+        };
 
       systemd.tmpfiles.settings =
         lib.mapAttrs' (name: org: {
