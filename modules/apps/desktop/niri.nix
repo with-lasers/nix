@@ -12,6 +12,10 @@
     # Copied from https://wiki.nixos.org/wiki/Niri
     config = lib.mkMerge [
       {
+        # niri never activates graphical-session.target; anchor wayland units
+        # on the session unit it does start.
+        wayland.systemd.target = "niri.service";
+
         home.packages = with pkgs; [
           swaybg
           xwayland-satellite
