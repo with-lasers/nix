@@ -40,7 +40,8 @@
             fi
 
             if [[ -f "$WORKSPACE" ]]; then
-              ${lib.getExe config.programs.vscode.package} "$WORKSPACE"
+              ctx open-context "$WORKSPACE"
+              ${lib.getExe config.programs.vscode.package} --new-window "$WORKSPACE"
             fi
           '';
         })
