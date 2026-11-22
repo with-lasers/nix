@@ -40,7 +40,12 @@
             fi
 
             if [[ -f "$WORKSPACE" ]]; then
-              ctx open-context "$WORKSPACE"
+              # Context setup is best effort: the editor must open even when
+              # the consuming flake does not provide ctx.
+              if command -v ctx >/dev/null; then
+                ctx open-context "$WORKSPACE" || true
+              fi
+
               ${lib.getExe config.programs.vscode.package} --new-window "$WORKSPACE"
             fi
           '';
